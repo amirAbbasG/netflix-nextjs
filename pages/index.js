@@ -1,7 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
+
 import Banner from "../components/banner/Banner";
 import Navbar from "../components/nav/NavBar";
+import Card from "../components/card/Card";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -18,6 +19,9 @@ export default function Home() {
         subTitle="a very butifull dog"
         imgUrl="/static/clifford.webp"
       />
+      <Card imgUrl="/static/clifford.webp" size="larg" />
+      <Card imgUrl="/static/clifford.webp" size="medium" />
+      <Card imgUrl="/static/clifford.webp" size="small" />
     </div>
   );
 }
