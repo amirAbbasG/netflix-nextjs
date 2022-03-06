@@ -4,7 +4,6 @@
 }
 
 .smItem {
-  position: relative;
   width: 300px;
   min-width: 300px;
   height: 170px;
@@ -12,7 +11,6 @@
 }
 
 .mdItem {
-  position: relative;
   width: 158px;
   min-width: 158px;
   height: 280px;
@@ -20,7 +18,6 @@
 }
 
 .lgItem {
-  position: relative;
   width: 218px;
   min-width: 218px;
   height: 434px;
@@ -40,4 +37,13 @@
   display: block;
 
   max-width: 100%;
+}
+
+.imgMotionWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.imgMotionWrapper:hover {
+  z-index: 99;
 }
