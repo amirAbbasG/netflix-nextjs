@@ -1,39 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 import styles from "../styles/Login.module.css";
+import Loading from "../components/loading/Loading";
 import { magic } from "../lib/magic";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [userMsg, setUserMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     if (email) {
-      if (email === "amir.h.a.g73@gmail.com") {
+      if (
+        email === "amir.h.a.g73@gmail.com" ||
+        email === "amir.h.abbas.g@gmail.com"
+      ) {
         setUserMsg("");
         try {
+          setIsLoading(true);
           const didToken = await magic.auth.loginWithMagicLink({
             email,
           });
 
-          console.log({ didToken });
           if (didToken) {
             router.push("/");
           }
         } catch (error) {
+          setIsLoading(false);
           console.log("something went wrong logginig in", error);
         }
       } else {
+        setIsLoading(false);
         setUserMsg("Email address is wrong");
       }
     } else {
+      setIsLoading(false);
       setUserMsg("Enter a valid email address");
     }
   };
@@ -65,7 +86,7 @@ const Login = () => {
           />
           <p className={styles.userMsg}>{userMsg}</p>
           <button onClick={handleLogin} className={styles.loginBtn}>
-            Sign In
+            {isLoading ? "Loading..." : "Sign In"}
           </button>
         </div>
       </main>
