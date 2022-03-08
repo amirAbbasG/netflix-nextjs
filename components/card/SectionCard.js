@@ -1,5 +1,7 @@
 import React from "react";
 
+import Link from "next/link";
+
 import styles from "./sectionCard.module.css";
 import Card from "./Card";
 
@@ -9,7 +11,11 @@ const Sectioncard = ({ title, videos = [], size }) => {
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.cardWrapper}>
         {videos.map((video, index) => (
-          <Card id={index} key={index} imgUrl={video.imgUrl} size={size} />
+          <Link href={`/video/${video.id}`}>
+            <a>
+              <Card id={index} key={index} imgUrl={video.imgUrl} size={size} />
+            </a>
+          </Link>
         ))}
       </div>
     </section>
