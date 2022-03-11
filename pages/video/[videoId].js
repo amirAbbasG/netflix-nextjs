@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useRouter } from "next/router";
 
@@ -47,12 +47,51 @@ const Video = ({ video }) => {
     statistics: { viewCount } = { viewCount: 0 },
   } = video;
 
-  const handleClickLike = () => {
-    setLikeOrDislike("like");
+  useEffect(async () => {
+    const response = await fetch(`/api/stats?videoId=${videoId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { findVideo } = await response.json();
+
+    if (findVideo && findVideo.length > 0) {
+      const favourite = findVideo[0].favourited;
+
+      if (favourite === 0) {
+        setLikeOrDislike("dislike");
+      } else if (favourite === 1) {
+        setLikeOrDislike("like");
+      }
+    }
+  }, []);
+
+  const ratingService = async (favourited) => {
+    const response = await fetch(`/api/stats?videoId=${videoId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        favourited,
+      }),
+    });
+    return await response.json();
   };
 
-  const handleClickDislike = () => {
-    setLikeOrDislike("dislike");
+  const handleClickLike = async () => {
+    const result = await ratingService(1);
+    if (result.done) {
+      setLikeOrDislike("like");
+    }
+  };
+
+  const handleClickDislike = async () => {
+    const result = await ratingService(0);
+    if (result.done) {
+      setLikeOrDislike("dislike");
+    }
   };
 
   return (

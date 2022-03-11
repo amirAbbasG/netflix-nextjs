@@ -5,7 +5,12 @@ import classnames from "classnames";
 
 import styles from "./card.module.css";
 
-const Card = ({ imgUrl = "/static/movie.jpg", size = "medium", id }) => {
+const Card = ({
+  imgUrl = "/static/movie.jpg",
+  size = "medium",
+  id,
+  shouldScale = true,
+}) => {
   const [imgSrc, setImgSrc] = useState(imgUrl);
 
   const classMap = {
@@ -23,7 +28,7 @@ const Card = ({ imgUrl = "/static/movie.jpg", size = "medium", id }) => {
   return (
     <div className={styles.container}>
       <motion.div
-        whileHover={scale}
+        whileHover={shouldScale && scale}
         className={classnames(styles.imgMotionWrapper, classMap[size])}
       >
         <Image

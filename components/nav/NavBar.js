@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { magic } from "../../lib/magic";
@@ -11,10 +10,13 @@ const Navbar = () => {
   const router = useRouter();
   const [showDropDown, setShowDropDown] = useState(false);
   const [username, setUsername] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(async () => {
     try {
       const { email } = await magic.user.getMetadata();
+      const didToken = await magic.user.getIdToken();
+      setToken(didToken);
       setUsername(email);
     } catch (error) {
       console.error(error);
@@ -28,7 +30,7 @@ const Navbar = () => {
 
   const handleClickMyList = (e) => {
     e.preventDefault();
-    router.push("/brows/my-list");
+    router.push("/browse/my-list");
   };
 
   const handleClickUsername = (e) => {
@@ -39,10 +41,18 @@ const Navbar = () => {
   const handleSignOut = async (e) => {
     e.preventDefault();
     try {
-      await magic.user.logout();
-      router.push("/login");
+      const didToken = await magic.user.getIdToken();
+
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      await response.json();
     } catch (error) {
-      console.error("somthing went wring loggining out : ", error);
+      console.error("somthing went wrong loggining out : ", error);
       router.push("/login");
     }
   };

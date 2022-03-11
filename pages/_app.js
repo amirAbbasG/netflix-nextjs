@@ -7,19 +7,9 @@ import Loading from "../components/loading/Loading";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-
-  useEffect(async () => {
-    const isLogin = await magic.user.isLoggedIn();
-
-    if (isLogin) {
-      router.push("/");
-    } else {
-      router.push("/login");
-    }
-  }, []);
 
   useEffect(() => {
     const handleComplete = () => {
