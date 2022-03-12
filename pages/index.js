@@ -9,6 +9,7 @@ import {
   getWatcheAgainVidos,
 } from "../lib/videos";
 import styles from "../styles/Home.module.css";
+import { verifyToken } from "../lib/utils";
 
 export async function getServerSideProps(context) {
   const token = context.req ? context.req.cookies?.token : null;

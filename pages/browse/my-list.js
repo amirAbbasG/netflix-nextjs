@@ -4,6 +4,7 @@ import Sectioncard from "../../components/card/SectionCard";
 import Navbar from "../../components/nav/NavBar";
 import styles from "../../styles/MyList.module.css";
 import { getMyListVideos } from "../../lib/videos";
+import { verifyToken } from "../../lib/utils";
 
 export async function getServerSideProps(context) {
   const token = context.req ? context.req.cookies?.token : null;
