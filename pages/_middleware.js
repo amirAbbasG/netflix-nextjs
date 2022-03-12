@@ -15,6 +15,7 @@ export async function middleware(req) {
   const userId = decodedToken.issuer;
 
   const { pathname } = req.nextUrl;
+  console.log({ pathname });
 
   if (
     pathname.includes("/api/login") ||
