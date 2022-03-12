@@ -9,6 +9,8 @@ export async function middleware(req) {
       ? req.cookies?.token
       : null;
 
+  const { pathname } = req.nextUrl;
+
   if ((!token || token === null) && pathname !== "/login") {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
@@ -16,8 +18,6 @@ export async function middleware(req) {
   } else {
     const decodedToken = jwt.decode(token);
     const userId = decodedToken.issuer;
-
-    const { pathname } = req.nextUrl;
 
     if (
       pathname.includes("/api/login") ||
