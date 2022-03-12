@@ -12,6 +12,9 @@ export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
   if ((!token || token === null) && pathname !== "/login") {
+    if (pathname.includes("/api/login") || pathname.includes("/static")) {
+      return NextResponse.next();
+    }
     const url = req.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.rewrite(url);
