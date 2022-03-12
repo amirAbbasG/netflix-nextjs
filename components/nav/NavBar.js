@@ -104,11 +104,9 @@ const Navbar = () => {
             {showDropDown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <link href="#">
-                    <a onClick={handleSignOut} className={styles.linkName}>
-                      Sign out
-                    </a>
-                  </link>
+                  <a onClick={handleSignOut} className={styles.linkName}>
+                    Sign out
+                  </a>
 
                   <div className={styles.lineWrapper}></div>
                 </div>
