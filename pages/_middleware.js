@@ -4,7 +4,7 @@ import jwt from "@tsndr/cloudflare-worker-jwt";
 
 export async function middleware(req) {
   const token = req ? req.cookies?.token : null;
-  const decodedToken = jwt.decode(token.toString());
+  const decodedToken = jwt.decode(`${token}`);
   const userId = decodedToken.issuer;
 
   const { pathname } = req.nextUrl;
