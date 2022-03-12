@@ -9,27 +9,26 @@ export async function middleware(req) {
       ? req.cookies?.token
       : null;
 
-  console.log(token);
-  // const userId = await verifyToken(token);
-  const decodedToken = jwt.decode(token);
-  console.log({ decodedToken });
-  const userId = decodedToken.issuer;
-
-  const { pathname } = req.nextUrl;
-  console.log({ pathname });
-
-  if (
-    pathname.includes("/api/login") ||
-    userId ||
-    pathname.includes("/static")
-  ) {
-    return NextResponse.next();
-  }
-
-  if (!token || (token === "undifind" && pathname !== "/login")) {
-    console.log("herer");
+  if ((!token || token === null) && pathname !== "/login") {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.rewrite(url);
+  } else {
+    const decodedToken = jwt.decode(token);
+    const userId = decodedToken.issuer;
+
+    const { pathname } = req.nextUrl;
+
+    if (
+      pathname.includes("/api/login") ||
+      userId ||
+      pathname.includes("/static")
+    ) {
+      return NextResponse.next();
+    } else {
+      const url = req.nextUrl.clone();
+      url.pathname = "/login";
+      return NextResponse.rewrite(url);
+    }
   }
 }
