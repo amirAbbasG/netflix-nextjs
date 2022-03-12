@@ -4,6 +4,7 @@ import jwt from "@tsndr/cloudflare-worker-jwt";
 
 export async function middleware(req) {
   const token = req ? req.cookies?.token : null;
+  console.log(token);
   const isValid = await jwt.verify(token, process.env.JWT_SECRET);
   // Check for validity
   if (!isValid) {
