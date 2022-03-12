@@ -114,7 +114,7 @@ const Video = ({ video }) => {
           width="100%"
           height="400"
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&origin=http://example.com&controls=0&rel=0`}
-          frameborder="0"
+          frameBorder="0"
         ></iframe>
         <div className={styles.likeDislikeBtnWrapper}>
           <button onClick={handleClickLike} className={styles.likeBtnWrapper}>

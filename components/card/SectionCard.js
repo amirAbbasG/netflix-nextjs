@@ -21,11 +21,10 @@ const Sectioncard = ({
         className={classNames(styles.cardWrapper, shouldWrap && styles.wrap)}
       >
         {videos.map((video, index) => (
-          <Link href={`/video/${video.id}`}>
+          <Link href={`/video/${video.id}`} key={video.id}>
             <a>
               <Card
                 id={index}
-                key={video.id}
                 imgUrl={video.imgUrl}
                 size={size}
                 shouldScale={shouldScale}

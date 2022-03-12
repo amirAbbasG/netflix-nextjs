@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import styles from "../styles/Login.module.css";
-import Loading from "../components/loading/Loading";
 import { magic } from "../lib/magic";
 
 const Login = () => {
@@ -71,16 +71,18 @@ const Login = () => {
         <title>Netflix signin</title>
       </Head>
       <header className={styles.header}>
-        <a className={styles.logoLink} href="/">
-          <div className={styles.logoWrapper}>
-            <Image
-              src="/static/netflix.svg"
-              alt="Netflix logo"
-              width="128px"
-              height="34px"
-            />
-          </div>
-        </a>
+        <Link href="/">
+          <a className={styles.logoLink}>
+            <div className={styles.logoWrapper}>
+              <Image
+                src="/static/netflix.svg"
+                alt="Netflix logo"
+                width="128px"
+                height="34px"
+              />
+            </div>
+          </a>
+        </Link>
       </header>
       <main className={styles.main}>
         <div className={styles.mainWrapper}>

@@ -13,7 +13,7 @@ const Navbar = () => {
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
 
-  useEffect(async () => {
+  useEffect(() => {
     const getData = async () => {
       try {
         const { email } = await magic.user.getMetadata();
@@ -64,16 +64,18 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <a className={styles.logoLink} href="/">
-          <div className={styles.logoWrapper}>
-            <Image
-              src="/static/netflix.svg"
-              alt="Netflix logo"
-              width="128px"
-              height="34px"
-            />
-          </div>
-        </a>
+        <Link href="/">
+          <a className={styles.logoLink}>
+            <div className={styles.logoWrapper}>
+              <Image
+                src="/static/netflix.svg"
+                alt="Netflix logo"
+                width="128px"
+                height="34px"
+              />
+            </div>
+          </a>
+        </Link>
 
         <ul className={styles.navItems}>
           <li onClick={handleClickHome} className={styles.navItem}>
