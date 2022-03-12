@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
+import { verifyToken } from "../lib/utils";
 
-import jwt from "@tsndr/cloudflare-worker-jwt";
+// import jwt from "@tsndr/cloudflare-worker-jwt";
 
 export async function middleware(req) {
   const token = req ? req.cookies?.token : null;
-  const decodedToken = jwt.decode(`${token}`);
-  const userId = decodedToken.issuer;
+  const userId = await verifyToken(token);
+  // const decodedToken = jwt.decode(token);
+  // const userId = decodedToken.issuer;
 
   const { pathname } = req.nextUrl;
 
