@@ -12,6 +12,7 @@ export async function middleware(req) {
   console.log(token);
   // const userId = await verifyToken(token);
   const decodedToken = jwt.decode(token);
+  console.log({ decodedToken });
   const userId = decodedToken.issuer;
 
   const { pathname } = req.nextUrl;
@@ -25,7 +26,7 @@ export async function middleware(req) {
     return NextResponse.next();
   }
 
-  if (!token && pathname !== "/login") {
+  if (!token || (token === "undifind" && pathname !== "/login")) {
     console.log("herer");
     const url = req.nextUrl.clone();
     url.pathname = "/login";
