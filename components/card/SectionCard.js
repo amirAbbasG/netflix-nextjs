@@ -25,7 +25,7 @@ const Sectioncard = ({
             <a>
               <Card
                 id={index}
-                key={index}
+                key={video.id}
                 imgUrl={video.imgUrl}
                 size={size}
                 shouldScale={shouldScale}

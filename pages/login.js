@@ -48,7 +48,6 @@ const Login = () => {
           });
 
           const logginResponse = await response.json();
-          console.log({ logginResponse });
           if (logginResponse.done) {
             router.push("/");
           } else {

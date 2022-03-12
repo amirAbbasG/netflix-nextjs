@@ -8,21 +8,11 @@ import {
   getPopularVideos,
   getWatcheAgainVidos,
 } from "../lib/videos";
-import useUserDetail from "../utils/userDetail";
 import styles from "../styles/Home.module.css";
 
 export async function getServerSideProps(context) {
-  const { token, userId } = useUserDetail(context);
-
-  if (!userId) {
-    return {
-      props: {},
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+  const token = context.req ? context.req.cookies?.token : null;
+  const userId = verifyToken(token);
 
   const disneyVideos = await getVideos("disney trailer");
 

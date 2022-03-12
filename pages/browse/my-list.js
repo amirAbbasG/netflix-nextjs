@@ -4,10 +4,10 @@ import Sectioncard from "../../components/card/SectionCard";
 import Navbar from "../../components/nav/NavBar";
 import styles from "../../styles/MyList.module.css";
 import { getMyListVideos } from "../../lib/videos";
-import useUserDetail from "../../utils/userDetail";
 
 export async function getServerSideProps(context) {
-  const { token, userId } = useUserDetail(context);
+  const token = context.req ? context.req.cookies?.token : null;
+  const userId = verifyToken(token);
   const myListVideos = await getMyListVideos(token, userId);
 
   return {

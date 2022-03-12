@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { magic } from "../../lib/magic";
@@ -13,14 +14,17 @@ const Navbar = () => {
   const [token, setToken] = useState("");
 
   useEffect(async () => {
-    try {
-      const { email } = await magic.user.getMetadata();
-      const didToken = await magic.user.getIdToken();
-      setToken(didToken);
-      setUsername(email);
-    } catch (error) {
-      console.error(error);
-    }
+    const getData = async () => {
+      try {
+        const { email } = await magic.user.getMetadata();
+        const didToken = await magic.user.getIdToken();
+        setToken(didToken);
+        setUsername(email);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
   }, []);
 
   const handleClickHome = (e) => {
@@ -98,9 +102,11 @@ const Navbar = () => {
             {showDropDown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <a onClick={handleSignOut} className={styles.linkName}>
-                    Sign out
-                  </a>
+                  <link href="#">
+                    <a onClick={handleSignOut} className={styles.linkName}>
+                      Sign out
+                    </a>
+                  </link>
 
                   <div className={styles.lineWrapper}></div>
                 </div>

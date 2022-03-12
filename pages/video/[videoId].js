@@ -47,25 +47,28 @@ const Video = ({ video }) => {
     statistics: { viewCount } = { viewCount: 0 },
   } = video;
 
-  useEffect(async () => {
-    const response = await fetch(`/api/stats?videoId=${videoId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const { findVideo } = await response.json();
+  useEffect(() => {
+    const fetchVideo = async () => {
+      const response = await fetch(`/api/stats?videoId=${videoId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { findVideo } = await response.json();
 
-    if (findVideo && findVideo.length > 0) {
-      const favourite = findVideo[0].favourited;
+      if (findVideo && findVideo.length > 0) {
+        const favourite = findVideo[0].favourited;
 
-      if (favourite === 0) {
-        setLikeOrDislike("dislike");
-      } else if (favourite === 1) {
-        setLikeOrDislike("like");
+        if (favourite === 0) {
+          setLikeOrDislike("dislike");
+        } else if (favourite === 1) {
+          setLikeOrDislike("like");
+        }
       }
-    }
-  }, []);
+    };
+    fetchVideo();
+  }, [videoId]);
 
   const ratingService = async (favourited) => {
     const response = await fetch(`/api/stats?videoId=${videoId}`, {
