@@ -47,13 +47,7 @@ const Login = () => {
             },
           });
 
-          const logginResponse = await response.json();
-          if (logginResponse.done) {
-            router.push("/");
-          } else {
-            setIsLoading(false);
-            setUserMsg("something went wrong logginig in");
-          }
+          router.push("/");
         }
       } catch (error) {
         setIsLoading(false);
