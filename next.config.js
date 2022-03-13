@@ -4,20 +4,20 @@ const nextConfig = {
   images: {
     domains: ["i.ytimg.com"],
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/login",
-        permanent: false,
-      },
-      {
-        source: "/login",
-        destination: "/",
-        permanent: false,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/login",
+  //       permanent: false,
+  //     },
+  //     {
+  //       source: "/login",
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;
