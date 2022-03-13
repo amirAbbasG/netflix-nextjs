@@ -55,6 +55,7 @@ const Navbar = () => {
         },
       });
       await response.json();
+      router.push("/login");
     } catch (error) {
       console.error("somthing went wrong loggining out : ", error);
       router.push("/login");
